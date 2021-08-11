@@ -1,0 +1,13 @@
+name: binder-dash-proxy
+channels:
+  - defaults
+  - conda-forge
+  - plotly
+dependencies:
+  - dash
+  - dash-bootstrap-components
+  - python=3
+  - pandas
+  - pip
+  - pip:
+    - jupyter-server-proxy
