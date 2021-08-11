@@ -3,10 +3,15 @@ import dash_core_components as dcc
 import dash_html_components as html
 import plotly.express as px
 import pandas as pd
+import sys
+
+args = sys.argv[1:]
+base_url = args[0]
+port = args[1]
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets, requests_pathname_prefix="/proxy/8050/")
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets, requests_pathname_prefix=f"{base_url}/dash/")
 
 df = pd.DataFrame({
     "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
@@ -30,4 +35,4 @@ app.layout = html.Div(children=[
 ])
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=True, port=port)

@@ -2,6 +2,5 @@
 jupyter serverextension enable --sys-prefix jupyter_server_proxy
 # install the dash server extension so that
 # dash launches at startup
-mv dashserverextension.py ${NB_PYTHON_PREFIX}/lib/python*/site-packages/
-# enable bokeh extension
-jupyter serverextension enable --sys-prefix dashserverextension
+mkdir ${HOME}/.jupyter/
+mv jupyter_notebook_config.py ${HOME}/.jupyter/
