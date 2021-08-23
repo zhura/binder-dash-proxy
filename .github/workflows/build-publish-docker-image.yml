@@ -27,17 +27,11 @@ jobs:
         chmod +x ./.github/workflows/generate_image_name
         echo "IMAGE_NAME=$(./.github/workflows/generate_image_name ${{ github.repository }} ${{ github.sha }} ${{ secrets.IMAGE_PREFIX }})" >> $GITHUB_ENV 
     
-    - name: Test value of IMAGE_NAME var
-      run: |
-        echo $IMAGE_NAME
-
-    - name: Configure Azure Credentials
+    - name: Build docker image
       uses: azure/docker-login@v1
       with:
         login-server: ${{ secrets.ACR_NAME }}.azurecr.io
         username: ${{ secrets.ACR_USERNAME }}
         password: ${{ secrets.ACR_PASSWORD }}
-
-    - name: Build docker image
       run: |
-        jupyter-repo2docker --image $IMAGE_NAME --no-clean --no-run --user-name jovyan --user-id 1000 --push .
+        jupyter-repo2docker --ref ${{ github.sha }} --image $IMAGE_NAME --no-clean --no-run --user-name jovyan --user-id 1000 --push ${{ github.repository }}
