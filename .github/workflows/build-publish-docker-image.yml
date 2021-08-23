@@ -31,7 +31,13 @@ jobs:
       run: |
         echo $IMAGE_NAME
 
-    - name: Build image
+    - name: Configure Azure Credentials
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.ACR_NAME }}
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+
+    - name: Build docker image and push it to ACR
       run: |
-        docker login ${{ secrets.ACR_NAME }} -u ${{ secrets.ACR_USERNAME }} -p ${{ secrets.ACR_PASSWORD }}
-        jupyter-repo2docker --ref ${{ github.sha }} --image $IMAGE_NAME --no-clean --no-run --user-name jovyan --user-id 1000 --push .
+        jupyter-repo2docker --image $IMAGE_NAME --no-clean --no-run --user-name jovyan --user-id 1000 --push .
