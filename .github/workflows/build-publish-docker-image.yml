@@ -38,4 +38,4 @@ jobs:
         username: ${{ secrets.ACR_USERNAME }}
         password: ${{ secrets.ACR_PASSWORD }}
     - run: |
-        jupyter-repo2docker --ref ${{ github.sha }} --image $IMAGE_NAME --no-clean --no-run --user-name jovyan --user-id 1000 --push ${{ github.repository }}
+        jupyter-repo2docker --ref ${{ github.sha }} --image $IMAGE_NAME --no-clean --no-run --user-name jovyan --user-id 1000 --push .
